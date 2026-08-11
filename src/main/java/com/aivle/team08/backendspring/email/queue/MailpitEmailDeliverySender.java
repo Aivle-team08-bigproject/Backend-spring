@@ -169,6 +169,7 @@ public class MailpitEmailDeliverySender implements EmailDeliverySender {
                 + "<p style=\"margin:0 0 24px;font-size:12px;color:#adb5bd;\">"
                 + (filename != null ? "파일명: " + escape(filename) + "<br/>" : "")
                 + "이 링크는 " + expiresDays + "일간만 유효합니다. 만료되면 담당자에게 재발송을 요청해 주세요.</p>"
+                + apiCredentials(message)
                 + "<p style=\"margin:0;font-size:13px;color:#495057;line-height:1.6;\">" + contactLine + "</p>";
 
         return wrapEmailShell(content);
@@ -219,6 +220,25 @@ public class MailpitEmailDeliverySender implements EmailDeliverySender {
                 + "<td style=\"padding:4px 0;width:96px;color:#adb5bd;\">" + escape(label) + "</td>"
                 + "<td style=\"padding:4px 0;color:#495057;\">" + display + "</td>"
                 + "</tr>";
+    }
+
+    private String apiCredentials(EmailDeliveryQueueMessage message) {
+        if (blankToNull(message.apiEndpointUrl()) == null || blankToNull(message.apiKey()) == null) {
+            return "";
+        }
+        return "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin:0 0 24px;border:1px solid #d5e6e3;border-radius:6px;background:"
+                + BRAND_TINT + ";\">"
+                + "<tr><td colspan=\"2\" style=\"padding:16px 16px 8px;font-weight:700;color:" + BRAND_COLOR + ";\">API 접속 정보</td></tr>"
+                + apiInfoRow("API URL", message.apiEndpointUrl())
+                + apiInfoRow("API Key", message.apiKey())
+                + "</table>";
+    }
+
+    private String apiInfoRow(String label, String value) {
+        return "<tr>"
+                + "<td style=\"padding:4px 16px;width:96px;vertical-align:top;color:#7c9692;\">" + escape(label) + "</td>"
+                + "<td style=\"padding:4px 16px;vertical-align:top;color:#285e58;word-break:break-all;overflow-wrap:anywhere;\">"
+                + escape(value) + "</td></tr>";
     }
 
     private String blankToNull(String value) {

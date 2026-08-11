@@ -43,4 +43,8 @@ public record EmailDeliveryQueueMessage(
         @JsonProperty("artifact_filename")
         String artifactFilename,
         @JsonProperty("artifact_mime_type")
-        String artifactMimeType) {}
+        String artifactMimeType,
+        @JsonProperty("api_endpoint_url")
+        String apiEndpointUrl,
+        @JsonProperty("api_key")
+        String apiKey) {}
