@@ -9,6 +9,7 @@ import java.time.Instant;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
@@ -25,6 +26,7 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
  * ("S3 -> Spring" 원칙은 유지, DB만 FastAPI 뒤로 숨긴다).
  */
 @Service
+@Profile("!worker")
 public class CustomerDeliveryService {
     private final RestClient internalApiClient;
     private final String internalServiceKey;

@@ -6,10 +6,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
+@Profile("!worker")
 public class InternalServiceInterceptor implements HandlerInterceptor {
     public static final String HEADER_NAME = "X-Internal-Service-Key";
     private final byte[] expectedKey;

@@ -19,7 +19,7 @@ import com.aivle.team08.backendspring.email.infrastructure.EmailDeliveryReposito
 @ActiveProfiles({"test", "legacy-db"})
 class InternalEmailDeliveryControllerTest {
 
-    private static final String SERVICE_KEY = "local-development-only-key";
+    private static final String SERVICE_KEY = "test-internal-service-key-2026";
     private static final String VALID_REQUEST = """
             {
               "runId": 123,

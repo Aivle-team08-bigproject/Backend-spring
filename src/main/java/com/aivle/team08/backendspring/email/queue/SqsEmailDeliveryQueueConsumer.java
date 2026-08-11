@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -13,6 +14,7 @@ import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 
 /** 운영용 SQS 요청 큐 consumer. 성공적으로 소비한 메시지만 삭제한다. */
 @Component
+@Profile("worker")
 @ConditionalOnProperty(name = "email.queue.enabled", havingValue = "true")
 @ConditionalOnProperty(name = "email.queue.backend", havingValue = "sqs")
 public class SqsEmailDeliveryQueueConsumer {

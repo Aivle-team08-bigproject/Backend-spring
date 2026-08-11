@@ -3,12 +3,14 @@ package com.aivle.team08.backendspring.email.queue;
 import java.time.Duration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /** 로컬 Redis 요청 큐 consumer. 운영에서는 동일한 consumer 계약의 SQS adapter를 사용한다. */
 @Component
+@Profile("worker")
 @ConditionalOnProperty(name = "email.queue.enabled", havingValue = "true")
 @ConditionalOnProperty(name = "email.queue.backend", havingValue = "redis", matchIfMissing = true)
 public class RedisEmailDeliveryQueueConsumer {

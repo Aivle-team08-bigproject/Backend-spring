@@ -2,10 +2,12 @@ package com.aivle.team08.backendspring.common.security;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@Profile("!worker")
 @EnableConfigurationProperties(InternalServiceProperties.class)
 public class WebConfiguration implements WebMvcConfigurer {
     private final InternalServiceInterceptor interceptor;
