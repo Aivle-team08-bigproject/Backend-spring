@@ -27,4 +27,20 @@ public record EmailDeliveryQueueMessage(
         @JsonProperty("sample_metadata")
         Map<String, Object> sampleMetadata,
         @JsonProperty("sample_sha256")
-        String sampleSha256) {}
+        String sampleSha256,
+        @JsonProperty("request_no")
+        String requestNo,
+        @JsonProperty("request_title")
+        String requestTitle,
+        @JsonProperty("client_company_name")
+        String clientCompanyName,
+        @JsonProperty("owner_name")
+        String ownerName,
+        @JsonProperty("owner_email")
+        String ownerEmail,
+        @JsonProperty("artifact_storage_key")
+        String artifactStorageKey,
+        @JsonProperty("artifact_filename")
+        String artifactFilename,
+        @JsonProperty("artifact_mime_type")
+        String artifactMimeType) {}

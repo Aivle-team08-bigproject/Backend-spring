@@ -50,8 +50,16 @@ public class EmailDeliveryQueueConsumer {
     private void validate(EmailDeliveryQueueMessage message) {
         if (message.deliveryId() == null || message.deliveryId().isBlank()
                 || message.idempotencyKey() == null || message.idempotencyKey().isBlank()
-                || message.recipient() == null || message.recipient().isBlank()
-                || message.sampleRows() == null || message.sampleRows().size() != 5
+                || message.recipient() == null || message.recipient().isBlank()) {
+            throw new IllegalArgumentException("email queue message contract is invalid");
+        }
+        if ("FINAL_ARTIFACT".equals(message.deliveryType())) {
+            if (message.artifactStorageKey() == null || message.artifactStorageKey().isBlank()) {
+                throw new IllegalArgumentException("email queue message contract is invalid");
+            }
+            return;
+        }
+        if (message.sampleRows() == null || message.sampleRows().size() != 5
                 || message.sampleColumns() == null || message.sampleColumns().isEmpty()
                 || message.sampleSha256() == null || message.sampleSha256().isBlank()) {
             throw new IllegalArgumentException("email queue message contract is invalid");
