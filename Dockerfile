@@ -16,5 +16,5 @@ ENV SPRING_PROFILES_ACTIVE=api \
 USER spring
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
-    CMD sh -c 'case ",$${SPRING_PROFILES_ACTIVE}," in *,worker,*) kill -0 1 ;; *) curl --fail --silent http://127.0.0.1:8080/actuator/health/readiness ;; esac'
+    CMD sh -c 'case ",${SPRING_PROFILES_ACTIVE}," in *,worker,*) kill -0 1 ;; *) curl --fail --silent http://127.0.0.1:8080/actuator/health/readiness ;; esac'
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
